@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from 'react'; // 리액트
+import ReactDOM from 'react-dom'; // 리액트 DOM
+import './index.css'; //CSS
+import App from './App'; // APP 컴포넌트
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
+ReactDOM.render( // ReactDOM 내부의 컴포넌트들을 root 엘리먼트에 render
   <React.StrictMode>
-    <App />
+    <App /> // APP 컴포넌트
   </React.StrictMode>,
   document.getElementById('root')
 );
