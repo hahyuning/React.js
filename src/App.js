@@ -1,17 +1,33 @@
 import React from "react";
 import Todo from "./Todo";
+import AddTodo from "./AddTodo";
 import "./App.css";
-import { List, Paper } from "@material-ui/core";
+import { List, Paper, Container } from "@material-ui/core";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: [ 
-        { id: 0, title: "Hello World", done: true },
-        { id: 1, title: "Hello World", done: false },
-      ],
+      items: [],
     };
+  }
+
+  add = (item) => {
+    const thisItem = this.state.items;
+    item.id = "ID-" + thisItem.length; // key를 위한 id
+    item.done = false; // done 초기화
+    thisItem.push(item); // 리스트에 아이템 추가
+    this.setState({items: thisItem}); // 업데이트
+    console.log("items : ", this.state.items);
+  }
+
+  delete = (item) => {
+    const thisItems = this.state.items;
+    console.log("Before Update Items : ", this.state.items);
+    const newItems = thisItems.filter(e => e.id !== item.id);
+    this.setState({items: newItems}, () => {
+      console.log("Update Items : ", this.state.items)
+    });
   }
 
   render() {
@@ -19,13 +35,20 @@ class App extends React.Component {
       <Paper style={{margin: 16}}>
         <List>
           {this.state.items.map((item, idx) => (
-            <Todo item={item} key={item.id} />
+            <Todo item={item} key={item.id} delete={this.delete}/>
           ))};
         </List>
       </Paper>
     );
 
-    return <div className="App">{todoItems}</div>
+    return (
+      <div className="App">
+        <Container maxWidth="md">
+          <AddTodo add={this.add} />
+          <div className="TodoList">{todoItems}</div>
+        </Container>
+      </div>
+    );
   }
 }
 
