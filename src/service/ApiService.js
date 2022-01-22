@@ -39,8 +39,13 @@ export function signin(userDTO) {
     return call("/auth/signin", "POST", userDTO)
     .then((response) => {
         if (response.token) {
-            localStorage.setItem("ACCESS_TOKEN", response.token);
+            localStorage.setItem(ACCESS_TOKEN, response.token);
             window.location.href = "/";
         }
     });
+}
+
+export function signout() {
+    localStorage.setItem(ACCESS_TOKEN, null);
+    window.location.href = "/login";
 }
